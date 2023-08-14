@@ -25,9 +25,8 @@ def run_sft(
     callbacks: Optional[List["TrainerCallback"]] = None
 ):
     dataset = get_dataset(model_args, data_args)
-    tokenizer = LlamaTokenizer.from_pretrained(model_args.model_name_or_path)
-    dataset = preprocess_dataset(dataset, tokenizer, data_args, training_args, stage="sft")
     model, tokenizer = load_model_and_tokenizer(model_args, finetuning_args, training_args.do_train, stage="sft")
+    dataset = preprocess_dataset(dataset, tokenizer, data_args, training_args, stage="sft")
 
     data_collator = DataCollatorForSeq2Seq(
         tokenizer=tokenizer,

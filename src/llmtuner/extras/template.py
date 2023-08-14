@@ -252,7 +252,7 @@ leyan template.
 register_template(
     name="leyan",
     prefix=[],
-    prompt=["{query}"],
+    prompt=["{{query}}"],
     sep=[],
     stop_words=[],
     use_history=True
