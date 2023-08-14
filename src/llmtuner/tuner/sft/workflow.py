@@ -1,7 +1,7 @@
 # Inspired by: https://github.com/huggingface/transformers/blob/v4.29.2/examples/pytorch/summarization/run_summarization.py
 
 from typing import TYPE_CHECKING, Optional, List
-from transformers import DataCollatorForSeq2Seq
+from transformers import DataCollatorForSeq2Seq, LlamaTokenizer
 
 from llmtuner.dsets import get_dataset, preprocess_dataset, split_dataset
 from llmtuner.extras.constants import IGNORE_INDEX
@@ -25,8 +25,10 @@ def run_sft(
     callbacks: Optional[List["TrainerCallback"]] = None
 ):
     dataset = get_dataset(model_args, data_args)
-    model, tokenizer = load_model_and_tokenizer(model_args, finetuning_args, training_args.do_train, stage="sft")
+    tokenizer = LlamaTokenizer.from_pretrained(model_args.model_name_or_path)
     dataset = preprocess_dataset(dataset, tokenizer, data_args, training_args, stage="sft")
+    model, tokenizer = load_model_and_tokenizer(model_args, finetuning_args, training_args.do_train, stage="sft")
+
     data_collator = DataCollatorForSeq2Seq(
         tokenizer=tokenizer,
         label_pad_token_id=IGNORE_INDEX if data_args.ignore_pad_token_for_loss else tokenizer.pad_token_id

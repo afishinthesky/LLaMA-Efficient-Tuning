@@ -247,6 +247,18 @@ register_template(
 
 
 r"""
+leyan template.
+"""
+register_template(
+    name="leyan",
+    prefix="",
+    prompt="{query}",
+    sep="",
+    use_history=True
+)
+
+
+r"""
 Supports: https://huggingface.co/meta-llama/Llama-2-7b-chat-hf
           https://huggingface.co/meta-llama/Llama-2-13b-chat-hf
           https://huggingface.co/meta-llama/Llama-2-70b-chat-hf
