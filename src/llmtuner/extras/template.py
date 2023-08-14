@@ -251,9 +251,10 @@ leyan template.
 """
 register_template(
     name="leyan",
-    prefix="",
-    prompt="{query}",
-    sep="",
+    prefix=[],
+    prompt=["{query}"],
+    sep=[],
+    stop_words=[],
     use_history=True
 )
 
